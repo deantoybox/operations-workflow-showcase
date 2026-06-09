@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>營運流程改善作品｜王逸竹</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBFAF6;--ink:#17211B;--teal:#0E3A35;--teal-soft:#1C5249;
+    --marigold:#E8A317;--line:#DCD7C8;--muted:#6B6F69;--ok:#2E7D5B;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Noto Sans TC",sans-serif;color:var(--ink);background-color:var(--paper);
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:34px 34px;background-position:-1px -1px;line-height:1.8;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1040px;margin:0 auto;padding:0 28px}
+  .mono{font-family:"Space Mono",monospace;letter-spacing:.02em}
+
+  .top{display:flex;justify-content:space-between;align-items:center;padding:26px 0;border-bottom:1px solid var(--line)}
+  .brand{font-weight:900;font-size:18px}
+  .brand span{color:var(--marigold)}
+  .top .tag{font-size:12px;color:var(--muted)}
+
+  /* hero */
+  .hero{padding:70px 0 52px;position:relative;overflow:hidden}
+  .eyebrow{font-size:13px;color:var(--teal);font-weight:700;border:1px solid var(--teal);
+    display:inline-block;padding:5px 12px;border-radius:2px;background:rgba(14,58,53,.04)}
+  .hero .setup{font-size:16px;color:var(--muted);margin:26px 0 8px;max-width:740px}
+  .hero h1{font-size:clamp(29px,4.7vw,50px);font-weight:900;line-height:1.24;margin:0 0 22px;letter-spacing:-.01em}
+  .hero h1 mark{background:linear-gradient(transparent 56%,var(--marigold) 56%);padding:0 2px}
+  .hero p.lead{font-size:16.5px;max-width:740px;color:#34403a}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:4px;overflow:hidden;background:#fff;margin-top:32px}
+  .stat{padding:24px 18px;border-left:1px solid var(--line);text-align:center}
+  .stat:first-child{border-left:none}
+  .stat .num{font-family:"Space Mono",monospace;font-size:clamp(22px,3vw,30px);font-weight:700;color:var(--teal);line-height:1.05}
+  .stat .num small{font-size:15px}.stat .num span{color:var(--marigold)}
+  .stat .lab{font-size:12.5px;color:var(--muted);margin-top:9px;line-height:1.5}
+
+  .flow-wrap{margin-top:34px}
+  .flow-intro{font-size:14.5px;color:#34403a;margin-bottom:14px}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;border:1px solid var(--line);background:#fff;padding:20px;border-radius:4px;position:relative}
+  .flow::before{content:"現場操作流程";position:absolute;top:-10px;left:16px;background:var(--paper);font-size:11px;color:var(--muted);padding:0 8px;letter-spacing:.08em}
+  .chip{font-size:14px;padding:9px 13px;border-radius:3px;white-space:nowrap;line-height:1.3}
+  .chip.scan{background:var(--ink);color:#fff}
+  .chip.name{background:#F3EFE2;color:var(--ink);border:1px solid var(--line)}
+  .chip.log{background:var(--marigold);color:#3a2a00;font-weight:700}
+  .arrow{color:var(--muted);font-weight:700}
+  .scanline{position:absolute;left:0;top:0;height:2px;width:100%;background:var(--marigold);opacity:0;transform:translateY(0)}
+
+  .sec{padding:60px 0 12px}
+  .sec-ey{font-family:"Space Mono",monospace;font-size:12px;color:var(--teal);letter-spacing:.12em}
+  .sec h2{font-size:clamp(24px,3.4vw,36px);font-weight:900;margin-top:8px;line-height:1.3}
+  .sec .sub{font-size:15.5px;color:var(--muted);max-width:780px;margin-top:12px}
+
+  .ba{padding:8px 0}
+  .ba-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:#fff}
+  .ba-col{padding:30px 30px 32px}
+  .ba-col.then{background:#F4F1E8}
+  .ba-col h3{font-size:13px;letter-spacing:.1em;margin-bottom:16px;font-weight:700}
+  .ba-col.then h3{color:var(--teal-soft)}.ba-col.now h3{color:var(--ok)}
+  .ba-col ul{list-style:none}
+  .ba-col li{padding:11px 0 11px 26px;position:relative;font-size:15px;border-top:1px dashed var(--line)}
+  .ba-col li:first-child{border-top:none}
+  .ba-col.then li::before{content:"·";position:absolute;left:4px;color:var(--teal-soft);font-weight:700;font-size:20px;top:6px}
+  .ba-col.now li::before{content:"→";position:absolute;left:0;color:var(--ok);font-weight:700}
+
+  .feat{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:30px 0 8px}
+  .card{border:1px solid var(--line);background:#fff;border-radius:4px;padding:28px 26px;
+    opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+  .card.in{opacity:1;transform:none}
+  .card .ctag{font-family:"Space Mono",monospace;font-size:11.5px;color:var(--teal);border:1px solid var(--line);display:inline-block;padding:3px 9px;border-radius:2px;margin-bottom:16px;letter-spacing:.04em}
+  .card h4{font-size:19px;font-weight:900;margin-bottom:10px;line-height:1.35}
+  .card p{font-size:14.5px;color:#3c463f}
+
+  .skills{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:30px 0 8px}
+  .scard{border:1px solid var(--line);background:#fff;border-radius:4px;padding:26px;
+    opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+  .scard.in{opacity:1;transform:none}
+  .scard .stag{font-family:"Space Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.1em}
+  .scard h4{font-size:17px;font-weight:900;margin:6px 0 10px;line-height:1.4}
+  .scard p{font-size:14px;color:#3c463f}
+
+  .role{border:1px solid var(--line);background:#fff;border-radius:4px;padding:14px 30px 18px;margin-top:30px}
+  .role li{list-style:none;position:relative;padding:13px 0 13px 32px;font-size:15.5px;border-top:1px dashed var(--line)}
+  .role li:first-child{border-top:none}
+  .role li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:700}
+
+  .value{background:var(--teal);color:#EFF3F0;border-radius:6px;padding:50px 44px;margin:30px 0 0;
+    background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:34px 34px}
+  .value .sec-ey{color:var(--marigold)}
+  .value h2{color:#fff;margin-bottom:8px;font-size:clamp(23px,3.3vw,32px);font-weight:900;line-height:1.3}
+  .value .vintro{color:#C7D4CE;font-size:15.5px;margin-bottom:22px}
+  .vrow{display:grid;grid-template-columns:auto 1fr;gap:20px;padding:20px 0;border-top:1px solid rgba(255,255,255,.14)}
+  .vrow:first-of-type{border-top:none}
+  .vrow .vn{font-family:"Space Mono",monospace;color:var(--marigold);font-size:15px;font-weight:700;padding-top:3px}
+  .vrow h5{font-size:18px;font-weight:700;color:#fff;margin-bottom:5px}
+  .vrow p{color:#C7D4CE;font-size:15px}
+
+  .status-line{border:1px solid var(--line);background:#fff;border-radius:4px;padding:22px 26px;margin-top:24px;
+    font-size:15px;color:#34403a;border-left:3px solid var(--ok)}
+  .status-line b{font-weight:700}
+
+  .close{padding:60px 0 8px;text-align:center}
+  .close p.main{font-size:clamp(20px,2.7vw,27px);font-weight:900;line-height:1.5;max-width:840px;margin:0 auto}
+  .close p.main mark{background:linear-gradient(transparent 60%,var(--marigold) 60%)}
+  .close p.subline{font-size:16px;color:#34403a;max-width:720px;margin:20px auto 0;line-height:1.85}
+
+  /* 落款分隔：細線 + 小金點 */
+  .signoff-rule{width:46px;height:1px;background:var(--line);margin:46px auto 0;position:relative}
+  .signoff-rule::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:5px;height:5px;border-radius:50%;background:var(--marigold)}
+
+  .sign{text-align:center;margin-top:26px}
+  .sign .nm{font-size:19px;font-weight:900;color:var(--ink);letter-spacing:.06em}
+  .sign .role{display:block;font-family:"Space Mono",monospace;font-size:12px;color:var(--muted);letter-spacing:.05em;margin:9px 0 12px}
+  .sign a{font-size:14px;color:var(--teal);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:1px;transition:border-color .2s ease}
+  .sign a:hover{border-color:var(--teal)}
+
+  footer{border-top:1px solid var(--line);padding:24px 0 50px;color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:54px}
+
+  @media(max-width:780px){
+    .ba-grid,.feat,.skills{grid-template-columns:1fr}
+    .ba-col.then{border-bottom:1px solid var(--line)}
+    .value,.role{padding-left:24px;padding-right:24px}.value{padding:38px 24px}
+    .vrow{grid-template-columns:1fr;gap:4px}.flow{gap:8px}
+    .stats{grid-template-columns:1fr 1fr}
+    .stat:nth-child(3),.stat:nth-child(4){border-top:1px solid var(--line)}
+    .stat:nth-child(odd){border-left:none}
+  }
+  @media(prefers-reduced-motion:reduce){.card,.scard{opacity:1;transform:none;transition:none}.scanline{display:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="brand">營運流程改善 <span>作品</span></div>
+    <div class="tag mono">1 分鐘看懂 · 求職作品導覽</div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="scanline" id="scanline"></div>
+    <span class="eyebrow">求職作品導覽｜營運流程改善案例</span>
+    <p class="setup">這件事的起點,是老闆提出一個開放的方向:「要不要訂閱 AI 服務,看看能不能用在工作流程上?」當時還沒有明確方案。</p>
+    <h1>是我先看見了現場的風險,主動把這個方向,<br>做成一套<mark>把混亂理清楚</mark>的進銷存系統。</h1>
+    <p class="lead">當時公司大量進高單價 iPhone,上百支商品仍靠手寫與 LINE 回報安排出貨,錯一支成本都不小。我沒有等人交辦,先做出 iPhone 進出貨工具;老闆看了支持,我便從 5 月 20 日起,在維持正職的情況下,把它擴充成支援店內八大類商品的輕量系統。</p>
+
+    <div class="stats">
+      <div class="stat"><div class="num">1<small> 人</small></div><div class="lab">非工程背景,從定義需求到建置獨力完成</div></div>
+      <div class="stat"><div class="num">8<small> 大類</small></div><div class="lab">序號型與數量型商品,一套整合</div></div>
+      <div class="stat"><div class="num">300–400<small> 件</small></div><div class="lab">大檔單日出貨,出貨前自動完整核對</div></div>
+      <div class="stat"><div class="num">5<span>/</span>20</div><div class="lab">起步,短時間內擴充成全品類系統</div></div>
+    </div>
+
+    <div class="flow-wrap">
+      <p class="flow-intro">現場的人不再靠記憶與手抄,而是跟著系統一步步把事情做對:</p>
+      <div class="flow">
+        <span class="chip scan">掃描序號</span><span class="arrow">→</span>
+        <span class="chip name">自動判定商品</span><span class="arrow">→</span>
+        <span class="chip name">核對訂單</span><span class="arrow">→</span>
+        <span class="chip log">寫入紀錄</span><span class="arrow">→</span>
+        <span class="chip name">異常提醒</span><span class="arrow">→</span>
+        <span class="chip scan">統計查詢</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEFORE / AFTER -->
+  <section class="sec" style="padding-bottom:4px">
+    <div class="sec-ey">BEFORE / AFTER</div>
+    <h2>從「靠熟手記在腦袋裡」,到「人人都查得到」</h2>
+  </section>
+  <section class="ba">
+    <div class="ba-grid">
+      <div class="ba-col then">
+        <h3>原本比較吃力的地方</h3>
+        <ul>
+          <li>上百支高單價手機,仍靠手寫與 LINE 回報安排出貨,錯一支成本都不小</li>
+          <li>序號型與數量型商品的管理邏輯混在一起,全靠人記得</li>
+          <li>蝦皮 24 與企業採購的核對,得靠人一筆一筆對</li>
+          <li>老闆想看一週進出貨,得請人翻找、最後只能給個大概</li>
+        </ul>
+      </div>
+      <div class="ba-col now">
+        <h3>系統化之後的改變</h3>
+        <ul>
+          <li>掃碼就判定商品、即時提示,判讀不再靠記憶</li>
+          <li>序號型逐台追、數量型用數量管,清楚又整合在同一套系統</li>
+          <li>出貨前自動比對「該出的」與「實際掃到的」,平台核對更穩</li>
+          <li>統計查詢即時可得,老闆不必再等人整理</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="sec">
+    <div class="sec-ey">WHAT IT DOES</div>
+    <h2>四件它每天替現場顧好的事</h2>
+  </section>
+  <div class="feat">
+    <div class="card">
+      <span class="ctag">ALL-IN-ONE</span>
+      <h4>全品類進出貨,整合在一套系統</h4>
+      <p>從一支 iPhone 起步,擴充成支援店內八大類商品。每一類有各自的判定規則,掃碼就能自動分辨、正確入帳,同事不必再為了不同商品在多份表單之間切換。</p>
+    </div>
+    <div class="card">
+      <span class="ctag">DUAL LOGIC</span>
+      <h4>序號型與數量型庫存並存</h4>
+      <p>手機、音響要逐台追序號;配件、遊戲片只算數量。讓這兩種完全不同的邏輯在同一套系統裡並存又不打架,是整個專案最花心思的地方——也是它不只是「一張表格」的原因。</p>
+    </div>
+    <div class="card">
+      <span class="ctag">ORDER CHECK</span>
+      <h4>蝦皮 24／企業採購出貨核對</h4>
+      <p>大檔單日三、四百件,系統會把貨號轉型號、把組合商品拆開,再逐筆比對「該出的」與「實際掃到的」;企業採購則核對總量,大幅提高出貨前發現錯件、錯色、錯型號的機會。</p>
+    </div>
+    <div class="card">
+      <span class="ctag">MANAGEMENT</span>
+      <h4>統計查詢,讓主管不用等</h4>
+      <p>想看一段期間的進出貨、熱賣商品或各人工作量,依日期、訂單、序號或類別就查得到,不必再請人翻找半天、只給個估算。資料用得越久,越能成為管理依據。</p>
+    </div>
+  </div>
+
+  <!-- VALUE -->
+  <section class="sec">
+    <div class="value">
+      <div class="sec-ey">WHY IT MATTERS</div>
+      <h2>它真正的價值</h2>
+      <p class="vintro">系統化之後最實在的改變,其實是——大家比較安心。</p>
+      <div class="vrow"><div class="vn">01</div><div>
+        <h5>降低高單價商品的錯誤成本</h5>
+        <p>高單價商品一旦出錯,後續成本往往不只是補寄或退換貨。曾有一台筆電因顏色出錯、客人拆封後只能以福利品處理。系統在出貨前多一道核對,就是為了把這類風險盡量攔在貨物離開之前。</p>
+      </div></div>
+      <div class="vrow"><div class="vn">02</div><div>
+        <h5>進貨時間省下約一半</h5>
+        <p>一箱貨人工進貨原本約七、八分鐘,用系統大約三分鐘,還省去事後人工核對與登錄庫存(過去一週至少會有兩次小疏失)。單日破百件時,省下的時間與穩定度都很可觀。</p>
+      </div></div>
+      <div class="vrow"><div class="vn">03</div><div>
+        <h5>新人更快上手,老手不必一直善後</h5>
+        <p>過去新人要連續帶上約一週,才比較不會在進出貨出錯,疏漏還常得老手回頭收拾。有了防呆與好上手的流程,人員調度更有彈性,經驗也不再只留在某個人身上。</p>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- MY ROLE -->
+  <section class="sec">
+    <div class="sec-ey">MY ROLE</div>
+    <h2>在這個專案裡,我做的事</h2>
+  </section>
+  <ul class="role">
+    <li>主動發現現場的進出貨風險,並定義出該解決的問題</li>
+    <li>拆解不同商品的判定與核對規則</li>
+    <li>設計序號型與數量型並存的資料架構</li>
+    <li>運用 AI 協作與 Google Sheets + Apps Script 親手建置</li>
+    <li>撰寫操作說明,準備正式導入</li>
+  </ul>
+
+  <!-- WHAT IT SAYS ABOUT ME -->
+  <section class="sec">
+    <div class="sec-ey">WHAT IT SAYS ABOUT ME</div>
+    <h2>這個專案背後,我面對工作的方式</h2>
+  </section>
+  <div class="skills">
+    <div class="scard">
+      <div class="stag">INITIATIVE</div>
+      <h4>看見問題會主動補位</h4>
+      <p>老闆提出的是一個開放的方向,我把它接成具體成果。讓主管最安心的,常是身邊有人能把一句簡略的交代,默默補完、做到位。</p>
+    </div>
+    <div class="scard">
+      <div class="stag">ORGANIZE</div>
+      <h4>能把混亂整理成秩序</h4>
+      <p>無論是專案推進、跨部門協調,還是主管的行程與資訊管理,核心都是同一件事:讓複雜、零散的事變得清楚、可追蹤。</p>
+    </div>
+    <div class="scard">
+      <div class="stag">SUPPORT</div>
+      <h4>會站在主管角度先想一步</h4>
+      <p>設計時我想的不只是自己方便,而是「主管想看資料時,能不能不用等」,並把他可能會問的,提前準備好答案。</p>
+    </div>
+  </div>
+
+  <!-- STATUS -->
+  <section class="sec">
+    <div class="sec-ey">STATUS</div>
+    <h2>目前狀態</h2>
+  </section>
+  <p class="status-line">核心功能已完成,目前進入<b>正式上線前的測試與校正</b>;正式導入會配合蝦皮檔期結束後安排,避免在出貨高峰更動現場節奏。退貨入庫可作為後續追加需求,因頻率較低、可先人工補登,不影響主流程使用。</p>
+
+  <!-- CLOSING -->
+  <section class="close">
+    <p class="main">這個專案呈現的,不只是我會使用工具,而是我能把<mark>分散、重複、容易出錯</mark>的工作,整理成主管能掌握、團隊能交接、現場能長期使用的流程。</p>
+    <p class="subline">出團前的證件、機位與訂房核對,和「出貨前比對該出的與實際掃到的」,其實是同一種思路——在事情送出去之前,先替主管與客人多看一眼。我希望能把這份把混亂理清楚、把細節照顧好的習慣,帶到董事長秘書與行政支援的工作裡。</p>
+
+    <div class="signoff-rule"></div>
+    <div class="sign">
+      <span class="nm">王逸竹</span>
+      <span class="role">董事長秘書・行政與專案支援｜求職作品</span>
+      <a href="mailto:sylvcreator@gmail.com">sylvcreator@gmail.com</a>
+    </div>
+  </section>
+
+  <footer>
+    <span>營運流程改善作品 · 全品類進銷存系統</span>
+    <span class="mono">Google Sheets + Apps Script</span>
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const line = document.getElementById('scanline');
+    const hero = line ? line.parentElement : null;
+    if (line && hero){
+      const h = hero.offsetHeight;
+      line.style.opacity = '.9';
+      line.animate([{transform:'translateY(0)'},{transform:'translateY('+h+'px)'}],
+        {duration:1100, easing:'cubic-bezier(.4,0,.2,1)', fill:'forwards'}).onfinish = () => { line.style.opacity = '0'; };
+    }
+  })();
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach((e)=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.15});
+  document.querySelectorAll('.card, .scard').forEach((c,i)=>{ c.style.transitionDelay=(i%3*0.05)+'s'; io.observe(c); });
+</script>
+</body>
+</html>
